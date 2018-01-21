@@ -5,6 +5,7 @@ var fs = require('fs')
 var electron = require('electron')
 var app = electron.app
 var Tray = electron.Tray
+var ipcMain = electron.ipcMain
 var BrowserWindow = electron.BrowserWindow
 
 var extend = require('extend')
@@ -37,6 +38,12 @@ module.exports = function create (opts) {
 
   menubar.getOption = function (opt) {
     return opts[opt]
+  }
+
+  menubar.setIcon = function (icon) {
+    if (fs.existsSync(icon)) {
+      menubar.tray.setImage(icon);
+    }
   }
 
   return menubar
